@@ -22,3 +22,11 @@ To avoid building the docker image each time:
 
 To change PHP version, change the line `export VERSION=7.0.9` in build\_dockerfile.sh
 
+install\_php.sh and the Dockerfile contain compilation flags, configuration flags for php and xdebug.
+
+# Errors
+
+[valgrind\_output.txt](valgrind_output.txt) contains valgrind output, with the environment variable `USE_ZEND_ALLOC=0` set.
+(Don't use php's allocator emalloc, use malloc)
+
+[no\_valgrind\_output.txt](no_valgrind_output.txt) contains php output, without valgrind.
