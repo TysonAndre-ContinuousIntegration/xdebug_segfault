@@ -1,0 +1,149 @@
++ VERSION=7.0.9
++ XDEBUG_VERSION=2016-07-06-bcb45ac
++ TEST_FILE=test8.php
++ exec sudo docker run -v /home/tyson/xdebug_segfault/tests:/tests xdebug_segfault:7.0.9-2016-07-06-bcb45ac /bin/sh -c 'php --php-ini tests/php.ini; php-config; USE_ZEND_ALLOC=0 exec valgrind php --php-ini tests/php.ini tests/test8.php'
+Usage: /usr/local/bin/php-config [OPTION]
+Options:
+  --prefix            [/usr/local]
+  --includes          [-I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib]
+  --ldflags           []
+  --libs              [-lcrypt   -lresolv -lcrypt -lstdc++ -lbz2 -lz -lrt -lm -ldl -lnsl  -lrt -lxml2 -lz -lm -lxml2 -lz -lm -licui18n -licuuc -licudata -lm -licuio -lxml2 -lz -lm -lcrypt -lxml2 -lz -lm -lxml2 -lz -lm -lxml2 -lz -lm -lxml2 -lz -lm -lcrypt ]
+  --extension-dir     [/usr/local/lib/php/20151012-debug]
+  --include-dir       [/usr/local/include/php]
+  --man-dir           [/usr/local/share/man]
+  --php-binary        [/usr/local/bin/php]
+  --php-sapis         [ apache2handler cli fpm phpdbg cgi]
+  --configure-options [--enable-exif --localstatedir=/var --sysconfdir=/etc --with-config-file-path=/etc --without-pdo-sqlite --without-sqlite3 --without-pear --enable-inline-optimization --enable-ctype --enable-session --enable-wddx --with-zlib=/usr --with-layout=GNU --enable-json --enable-filter --enable-hash --enable-bcmath=shared --enable-fd-setsize=10000 --enable-pcntl --enable-zend-signals --with-apxs2 --with-bz2 --enable-intl --enable-fpm --enable-phpdbg --enable-debug]
+  --version           [7.0.9]
+  --vernum            [70009]
+==1== Memcheck, a memory error detector
+==1== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==1== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==1== Command: php --php-ini tests/php.ini tests/test8.php
+==1== 
+PHP Notice:  Undefined variable: xxxxxxx in /tests/test8.php on line 12
+PHP Stack trace:
+PHP   1. {main}() /tests/test8.php:0
+PHP   2. main($a = TRUE) /tests/test8.php:14
+
+Notice: Undefined variable: xxxxxxx in /tests/test8.php on line 12
+
+Call Stack:
+    0.1839          0   1. {main}() /tests/test8.php:0
+    0.1940          0   2. main(TRUE) /tests/test8.php:14
+
+PHP Notice:  Undefined property: client::$_url in /tests/test8.php on line 5
+PHP Stack trace:
+PHP   1. {main}() /tests/test8.php:0
+PHP   2. main($a = TRUE) /tests/test8.php:14
+==1== Conditional jump or move depends on uninitialised value(s)
+==1==    at 0x8DE8123: xdebug_var_export (xdebug_var.c:1027)
+==1==    by 0x8DE8AF7: xdebug_get_zval_value (xdebug_var.c:1192)
+==1==    by 0x8DDDBF8: xdebug_log_stack (xdebug_stack.c:224)
+==1==    by 0x8DDFB50: xdebug_error_cb (xdebug_stack.c:758)
+==1==    by 0x7A57CA: zend_error (zend.c:1154)
+==1==    by 0x7F0434: zend_std_read_property (zend_object_handlers.c:621)
+==1==    by 0x83EBBC: ZEND_FETCH_OBJ_R_SPEC_UNUSED_CONST_HANDLER (zend_vm_execute.h:23539)
+==1==    by 0x80846C: ZEND_USER_OPCODE_SPEC_HANDLER (zend_vm_execute.h:1568)
+==1==    by 0x80481A: execute_ex (zend_vm_execute.h:417)
+==1==    by 0x8DC3D5B: xdebug_execute_ex (xdebug.c:1898)
+==1==    by 0x808FB1: ZEND_CALL_TRAMPOLINE_SPEC_HANDLER (zend_vm_execute.h:1750)
+==1==    by 0x80481A: execute_ex (zend_vm_execute.h:417)
+==1== 
+==1== Conditional jump or move depends on uninitialised value(s)
+==1==    at 0x8DE8163: xdebug_var_export (xdebug_var.c:1037)
+==1==    by 0x8DE8AF7: xdebug_get_zval_value (xdebug_var.c:1192)
+==1==    by 0x8DDDBF8: xdebug_log_stack (xdebug_stack.c:224)
+==1==    by 0x8DDFB50: xdebug_error_cb (xdebug_stack.c:758)
+==1==    by 0x7A57CA: zend_error (zend.c:1154)
+==1==    by 0x7F0434: zend_std_read_property (zend_object_handlers.c:621)
+==1==    by 0x83EBBC: ZEND_FETCH_OBJ_R_SPEC_UNUSED_CONST_HANDLER (zend_vm_execute.h:23539)
+==1==    by 0x80846C: ZEND_USER_OPCODE_SPEC_HANDLER (zend_vm_execute.h:1568)
+==1==    by 0x80481A: execute_ex (zend_vm_execute.h:417)
+==1==    by 0x8DC3D5B: xdebug_execute_ex (xdebug.c:1898)
+==1==    by 0x808FB1: ZEND_CALL_TRAMPOLINE_SPEC_HANDLER (zend_vm_execute.h:1750)
+==1==    by 0x80481A: execute_ex (zend_vm_execute.h:417)
+==1== 
+==1== Use of uninitialised value of size 8
+==1==    at 0x8DE817A: xdebug_var_export (xdebug_var.c:1037)
+==1==    by 0x8DE8AF7: xdebug_get_zval_value (xdebug_var.c:1192)
+==1==    by 0x8DDDBF8: xdebug_log_stack (xdebug_stack.c:224)
+==1==    by 0x8DDFB50: xdebug_error_cb (xdebug_stack.c:758)
+==1==    by 0x7A57CA: zend_error (zend.c:1154)
+==1==    by 0x7F0434: zend_std_read_property (zend_object_handlers.c:621)
+==1==    by 0x83EBBC: ZEND_FETCH_OBJ_R_SPEC_UNUSED_CONST_HANDLER (zend_vm_execute.h:23539)
+==1==    by 0x80846C: ZEND_USER_OPCODE_SPEC_HANDLER (zend_vm_execute.h:1568)
+==1==    by 0x80481A: execute_ex (zend_vm_execute.h:417)
+==1==    by 0x8DC3D5B: xdebug_execute_ex (xdebug.c:1898)
+==1==    by 0x808FB1: ZEND_CALL_TRAMPOLINE_SPEC_HANDLER (zend_vm_execute.h:1750)
+==1==    by 0x80481A: execute_ex (zend_vm_execute.h:417)
+==1== 
+PHP   3. client->callSomeMagicMethod_1(*uninitialized*) /tests/test8.php:12
+PHP   4. client->__call($method = 'callSomeMagicMethod_1', $params = array (0 => NULL)) /tests/test8.php:12
+==1== Conditional jump or move depends on uninitialised value(s)
+==1==    at 0x8DE8123: xdebug_var_export (xdebug_var.c:1027)
+==1==    by 0x8DE8AF7: xdebug_get_zval_value (xdebug_var.c:1192)
+==1==    by 0x8DDE6B5: add_single_value (xdebug_stack.c:395)
+==1==    by 0x8DDEBAC: xdebug_append_printable_stack (xdebug_stack.c:484)
+==1==    by 0x8DDF121: get_printable_stack (xdebug_stack.c:581)
+==1==    by 0x8DDFDD4: xdebug_error_cb (xdebug_stack.c:806)
+==1==    by 0x7A57CA: zend_error (zend.c:1154)
+==1==    by 0x7F0434: zend_std_read_property (zend_object_handlers.c:621)
+==1==    by 0x83EBBC: ZEND_FETCH_OBJ_R_SPEC_UNUSED_CONST_HANDLER (zend_vm_execute.h:23539)
+==1==    by 0x80846C: ZEND_USER_OPCODE_SPEC_HANDLER (zend_vm_execute.h:1568)
+==1==    by 0x80481A: execute_ex (zend_vm_execute.h:417)
+==1==    by 0x8DC3D5B: xdebug_execute_ex (xdebug.c:1898)
+==1== 
+==1== Conditional jump or move depends on uninitialised value(s)
+==1==    at 0x8DE8163: xdebug_var_export (xdebug_var.c:1037)
+==1==    by 0x8DE8AF7: xdebug_get_zval_value (xdebug_var.c:1192)
+==1==    by 0x8DDE6B5: add_single_value (xdebug_stack.c:395)
+==1==    by 0x8DDEBAC: xdebug_append_printable_stack (xdebug_stack.c:484)
+==1==    by 0x8DDF121: get_printable_stack (xdebug_stack.c:581)
+==1==    by 0x8DDFDD4: xdebug_error_cb (xdebug_stack.c:806)
+==1==    by 0x7A57CA: zend_error (zend.c:1154)
+==1==    by 0x7F0434: zend_std_read_property (zend_object_handlers.c:621)
+==1==    by 0x83EBBC: ZEND_FETCH_OBJ_R_SPEC_UNUSED_CONST_HANDLER (zend_vm_execute.h:23539)
+==1==    by 0x80846C: ZEND_USER_OPCODE_SPEC_HANDLER (zend_vm_execute.h:1568)
+==1==    by 0x80481A: execute_ex (zend_vm_execute.h:417)
+==1==    by 0x8DC3D5B: xdebug_execute_ex (xdebug.c:1898)
+==1== 
+==1== Use of uninitialised value of size 8
+==1==    at 0x8DE817A: xdebug_var_export (xdebug_var.c:1037)
+==1==    by 0x8DE8AF7: xdebug_get_zval_value (xdebug_var.c:1192)
+==1==    by 0x8DDE6B5: add_single_value (xdebug_stack.c:395)
+==1==    by 0x8DDEBAC: xdebug_append_printable_stack (xdebug_stack.c:484)
+==1==    by 0x8DDF121: get_printable_stack (xdebug_stack.c:581)
+==1==    by 0x8DDFDD4: xdebug_error_cb (xdebug_stack.c:806)
+==1==    by 0x7A57CA: zend_error (zend.c:1154)
+==1==    by 0x7F0434: zend_std_read_property (zend_object_handlers.c:621)
+==1==    by 0x83EBBC: ZEND_FETCH_OBJ_R_SPEC_UNUSED_CONST_HANDLER (zend_vm_execute.h:23539)
+==1==    by 0x80846C: ZEND_USER_OPCODE_SPEC_HANDLER (zend_vm_execute.h:1568)
+==1==    by 0x80481A: execute_ex (zend_vm_execute.h:417)
+==1==    by 0x8DC3D5B: xdebug_execute_ex (xdebug.c:1898)
+==1== 
+
+Notice: Undefined property: client::$_url in /tests/test8.php on line 5
+
+Call Stack:
+    0.1839          0   1. {main}() /tests/test8.php:0
+    0.1940          0   2. main(TRUE) /tests/test8.php:14
+    0.2621          0   3. client->callSomeMagicMethod_1(*uninitialized*) /tests/test8.php:12
+    0.2655          0   4. client->__call('callSomeMagicMethod_1', array (0 => NULL)) /tests/test8.php:12
+
+==1== 
+==1== HEAP SUMMARY:
+==1==     in use at exit: 2,514 bytes in 25 blocks
+==1==   total heap usage: 19,249 allocs, 19,224 frees, 2,708,869 bytes allocated
+==1== 
+==1== LEAK SUMMARY:
+==1==    definitely lost: 24 bytes in 1 blocks
+==1==    indirectly lost: 0 bytes in 0 blocks
+==1==      possibly lost: 0 bytes in 0 blocks
+==1==    still reachable: 2,490 bytes in 24 blocks
+==1==         suppressed: 0 bytes in 0 blocks
+==1== Rerun with --leak-check=full to see details of leaked memory
+==1== 
+==1== For counts of detected and suppressed errors, rerun with: -v
+==1== Use --track-origins=yes to see where uninitialised values come from
+==1== ERROR SUMMARY: 6 errors from 6 contexts (suppressed: 6 from 6)
