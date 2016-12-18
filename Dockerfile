@@ -8,13 +8,13 @@ RUN yum install -y libtool-ltdl-devel gcc gcc-c++ flex bison libtool httpd-devel
 
 # Packages useful for debugging later
 RUN yum install valgrind gdb -y
-ARG VERSION=7.0.8
+ARG VERSION=7.0.14
 RUN wget -O php-$VERSION.tar.bz2 http://php.net/get/php-$VERSION.tar.bz2/from/this/mirror
 ENV CFLAGS "-O3 -g"
 ENV CPPFLAGS $CFLAGS
 ADD install_php.sh .
 RUN export VERSION CFLAGS CPPFLAGS; ./install_php.sh
-ARG XDEBUG_VERSION=2.4.0
+ARG XDEBUG_VERSION=2.5.0
 RUN wget https://xdebug.org/files/xdebug-$XDEBUG_VERSION.tgz --no-check-certificate
 ADD install_xdebug.sh .
 RUN export XDEBUG_VERSION CFLAGS CPPFLAGS; ./install_xdebug.sh
