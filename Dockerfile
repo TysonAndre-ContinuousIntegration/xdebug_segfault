@@ -15,6 +15,7 @@ ENV CPPFLAGS $CFLAGS
 ADD install_php.sh .
 RUN export VERSION CFLAGS CPPFLAGS; ./install_php.sh
 ARG XDEBUG_VERSION=2.5.0
-RUN wget https://xdebug.org/files/xdebug-$XDEBUG_VERSION.tgz --no-check-certificate
+ADD download_xdebug.sh .
+RUN ./download_xdebug.sh
 ADD install_xdebug.sh .
 RUN export XDEBUG_VERSION CFLAGS CPPFLAGS; ./install_xdebug.sh
